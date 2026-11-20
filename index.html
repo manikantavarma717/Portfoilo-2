@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Penumathsa Sai Manikanta Varma — Full Stack Developer</title>
+<meta name="description" content="Portfolio of Penumathsa Sai Manikanta Varma — Full Stack Developer building MERN applications with React, TypeScript, Node.js, Express, MongoDB, LangChain and OpenAI API integrations." />
+<meta name="theme-color" content="#FAF8F3" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231B1815'/%3E%3Ctext x='16' y='21.5' font-family='Georgia,serif' font-size='14' fill='%23FAF8F3' text-anchor='middle'%3ES%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Manrope:wght@400..800&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          paper: '#FAF8F3',
+          cream: '#F2EEE4',
+          ink: '#1B1815',
+          clay: '#BC4B23',
+          claylight: '#E06E42'
+        },
+        fontFamily: {
+          serif: ['Fraunces', 'Georgia', 'serif'],
+          sans: ['Manrope', 'system-ui', 'sans-serif']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  /* ============ base ============ */
+  html { scroll-behavior: smooth; }
+  body { background: #FAF8F3; color: #1B1815; font-family: 'Manrope', system-ui, sans-serif; overflow-x: hidden; }
+  ::selection { background: #BC4B23; color: #FAF8F3; }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #F2EEE4; }
+  ::-webkit-scrollbar-thumb { background: rgba(27,24,21,.28); border-radius: 8px; border: 2px solid #F2EEE4; }
+  ::-webkit-scrollbar-thumb:hover { background: #BC4B23; }
+  section[id] { scroll-margin-top: 84px; }
+
+  .hairline { border-color: rgba(27,24,21,.12); }
+  .dotgrid { background-image: radial-gradient(rgba(27,24,21,.09) 1px, transparent 1.5px); background-size: 20px 20px; }
+  .display em { font-style: italic; color: #BC4B23; }
+
+  /* film grain */
+  .grain { position: fixed; inset: -50%; width: 200%; height: 200%; z-index: 500; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  /* ============ preloader ============ */
+  #preloader { position: fixed; inset: 0; z-index: 600; background: #1B1815; color: #FAF8F3;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+    transition: transform .85s cubic-bezier(.76,0,.24,1); }
+  #preloader.done { transform: translateY(-101%); }
+  .pl-mono { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(3rem, 9vw, 5.5rem); letter-spacing: -0.02em; animation: plfade .9s .1s both; }
+  .pl-sub { font-size: 11px; font-weight: 800; letter-spacing: .35em; text-transform: uppercase; color: rgba(250,248,243,.45); animation: plfade .9s .4s both; }
+  @keyframes plfade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+  /* ============ hero entrance ============ */
+  .line { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+  .line-inner { display: inline-block; transform: translateY(115%); transition: transform 1.15s cubic-bezier(.22,1,.36,1); will-change: transform; }
+  .loaded .line:nth-child(1) .line-inner { transform: translateY(0); transition-delay: .05s; }
+  .loaded .line:nth-child(2) .line-inner { transform: translateY(0); transition-delay: .18s; }
+  .loaded .line:nth-child(3) .line-inner { transform: translateY(0); transition-delay: .31s; }
+  .fade-item { opacity: 0; transform: translateY(16px); transition: opacity .9s ease, transform .9s cubic-bezier(.22,1,.36,1); }
+  .loaded .fade-item { opacity: 1; transform: none; }
+  .d1 { transition-delay: .5s; } .d2 { transition-delay: .65s; } .d3 { transition-delay: .8s; } .d4 { transition-delay: .95s; }
+
+  /* ============ reveal on scroll ============ */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .9s ease, transform .9s cubic-bezier(.22,1,.36,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  .noscript-show { opacity: 1 !important; transform: none !important; }
+
+  /* ============ nav ============ */
+  #siteNav { transition: background-color .35s ease, border-color .35s ease, backdrop-filter .35s ease; border-bottom: 1px solid transparent; }
+  #siteNav.scrolled { background: rgba(250,248,243,.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom-color: rgba(27,24,21,.08); }
+  .nav-link { position: relative; color: rgba(27,24,21,.55); transition: color .3s; padding-bottom: 3px; }
+  .nav-link:hover { color: #1B1815; }
+  .u-link::after { content: ''; position: absolute; left: 0; bottom: -2px; height: 1.5px; width: 100%; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .4s cubic-bezier(.22,1,.36,1); }
+  .u-link:hover::after { transform: scaleX(1); transform-origin: left; }
+  .nav-link.active { color: #1B1815; }
+  .nav-link.active::after { transform: scaleX(1); }
+
+  /* mobile menu */
+  #mobileMenu { visibility: hidden; opacity: 0; transition: opacity .4s ease, visibility .4s ease; }
+  #mobileMenu.open { visibility: visible; opacity: 1; }
+  .mm-link { display: flex; align-items: baseline; gap: 16px; opacity: 0; transform: translateY(26px); transition: opacity .5s ease, transform .5s cubic-bezier(.22,1,.36,1); }
+  #mobileMenu.open .mm-link { opacity: 1; transform: none; }
+  #mobileMenu.open .mm-link:nth-child(1) { transition-delay: .08s; }
+  #mobileMenu.open .mm-link:nth-child(2) { transition-delay: .16s; }
+  #mobileMenu.open .mm-link:nth-child(3) { transition-delay: .24s; }
+  #mobileMenu.open .mm-link:nth-child(4) { transition-delay: .32s; }
+  #mobileMenu.open .mm-link:nth-child(5) { transition-delay: .4s; }
+
+  /* ============ rotating badge ============ */
+  .badge-spin { position: relative; width: 132px; height: 132px; display: flex; align-items: center; justify-content: center; }
+  .badge-spin svg.ring { position: absolute; inset: 0; animation: spin 14s linear infinite; }
+  .badge-spin .ring text { font-family: 'Manrope'; font-size: 10px; font-weight: 800; letter-spacing: 2.4px; fill: #1B1815; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .badge-center { width: 44px; height: 44px; border-radius: 9999px; background: #BC4B23; color: #FAF8F3; display: flex; align-items: center; justify-content: center; transition: transform .4s cubic-bezier(.22,1,.36,1), background .3s; }
+  .badge-spin:hover .badge-center { transform: scale(1.12) rotate(45deg); }
+  .spin-slow { animation: spin 40s linear infinite; }
+
+  /* ============ marquee ============ */
+  .marquee { overflow: hidden; border-top: 1px solid rgba(27,24,21,.12); border-bottom: 1px solid rgba(27,24,21,.12); background: #F2EEE4; }
+  .marquee-track { display: flex; width: max-content; animation: marquee 32s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  .mq-item { font-family: 'Fraunces'; font-weight: 300; font-style: italic; font-size: clamp(1.35rem, 2.6vw, 1.9rem); color: rgba(27,24,21,.8); white-space: nowrap; padding: 18px 0; }
+  .mq-sep { color: #BC4B23; font-size: 1rem; margin: 0 34px; align-self: center; }
+
+  /* ============ skill pills ============ */
+  .pill { font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 9999px; border: 1px solid rgba(27,24,21,.16); transition: all .3s ease; white-space: nowrap; }
+  .pill:hover { background: #1B1815; color: #FAF8F3; border-color: #1B1815; transform: translateY(-2px); }
+  .skill-row { transition: background-color .35s ease; }
+  .skill-row:hover { background: rgba(255,255,255,.55); }
+
+  /* ============ project mockups ============ */
+  .browser { width: 100%; max-width: 540px; margin: 0 auto; background: #fff; border: 1px solid rgba(27,24,21,.1); border-radius: 14px; overflow: hidden;
+    box-shadow: 0 30px 60px -30px rgba(27,24,21,.35); transition: transform .55s cubic-bezier(.22,1,.36,1), box-shadow .55s ease; }
+  .project-card:hover .browser { transform: translateY(-8px); box-shadow: 0 42px 70px -30px rgba(27,24,21,.42); }
+  .browser-bar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; background: #FBFAF6; border-bottom: 1px solid rgba(27,24,21,.08); }
+  .b-dot { width: 8px; height: 8px; border-radius: 9999px; flex-shrink: 0; }
+  .b-url { margin-left: 8px; flex: 1; font-size: 9px; font-weight: 700; color: rgba(27,24,21,.45); background: rgba(27,24,21,.05); border-radius: 9999px; padding: 3px 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .project-card { transition: border-color .4s ease; }
+  .project-card:hover { border-color: rgba(27,24,21,.3); }
+
+  .chart-bar { flex: 1; height: var(--h); align-self: flex-end; background: #5B79E3; border-radius: 3px 3px 0 0; transform: scaleY(0); transform-origin: bottom; transition: transform .8s cubic-bezier(.22,1,.36,1); transition-delay: calc(var(--i, 0) * 50ms); }
+  .reveal.in .chart-bar { transform: scaleY(1); }
+  .bar-fill { display: block; height: 100%; width: 0; background: #B3372F; border-radius: 9999px; transition: width 1.2s cubic-bezier(.22,1,.36,1) .5s; }
+  .reveal.in .bar-fill { width: var(--w); }
+  .bar-muted { background: #9AA48F; }
+  .scanline { position: absolute; left: 8px; right: 8px; height: 2px; background: rgba(224,110,66,.85); animation: scan 2.8s ease-in-out infinite alternate; }
+  @keyframes scan { from { top: 12%; } to { top: 86%; } }
+
+  .case-btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 14px; border-bottom: 2px solid #1B1815; padding-bottom: 4px; transition: color .3s, border-color .3s; }
+  .case-btn:hover { color: #BC4B23; border-color: #BC4B23; }
+  .case-btn svg { transition: transform .35s cubic-bezier(.22,1,.36,1); }
+  .case-btn:hover svg { transform: translate(3px, -3px); }
+  .icon-circle { width: 42px; height: 42px; border-radius: 9999px; border: 1px solid rgba(27,24,21,.18); display: flex; align-items: center; justify-content: center; transition: all .3s ease; }
+  .icon-circle:hover { background: #1B1815; color: #FAF8F3; border-color: #1B1815; }
+
+  /* stroke monogram */
+  .stroke-text { -webkit-text-stroke: 1.5px rgba(27,24,21,.6); color: transparent; transition: color .6s ease; }
+  .group:hover .stroke-text { color: rgba(188,75,35,.14); }
+
+  /* ============ modal ============ */
+  #modal { z-index: 450; }
+  #modal .modal-backdrop { opacity: 0; transition: opacity .35s ease; }
+  #modal .modal-card { opacity: 0; transform: translateY(28px) scale(.98); transition: opacity .4s ease, transform .45s cubic-bezier(.22,1,.36,1); }
+  #modal.open .modal-backdrop { opacity: 1; }
+  #modal.open .modal-card { opacity: 1; transform: none; }
+
+  /* ============ toast ============ */
+  #toast { position: fixed; bottom: 28px; left: 50%; transform: translate(-50%, 24px); z-index: 480; opacity: 0; pointer-events: none;
+    transition: opacity .35s ease, transform .45s cubic-bezier(.22,1,.36,1); }
+  #toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ============ form ============ */
+  .field { width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.16); border-radius: 14px; padding: 13px 16px; color: #FAF8F3; font-size: 14.5px; font-weight: 500; outline: none; transition: border-color .3s, background .3s; }
+  .field::placeholder { color: rgba(250,248,243,.32); }
+  .field:focus { border-color: #E06E42; background: rgba(255,255,255,.07); }
+  .input-err { border-color: #E5484D !important; }
+
+  #copyEmail.copied .i-copy { display: none; }
+  #copyEmail .i-check { display: none; }
+  #copyEmail.copied .i-check { display: block; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* Sadhana Prep uses the same hover slideshow as the other projects. */
+  .sadhana-slideshow { position: relative; width: 100%; height: 228px; overflow: hidden; background: #111; }
+  .sadhana-slideshow img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; padding: 9px; transition: opacity .7s; }
+  @media (min-width: 640px) { .sadhana-slideshow { height: 264px; } }
+
+</style>
+<noscript><style>.reveal,.fade-item,.line-inner{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+
+<body class="bg-paper text-ink font-sans antialiased">
+
+<!-- ══════════ Preloader ══════════ -->
+<div id="preloader">
+  <div class="pl-mono">SMV<span class="text-claylight">.</span></div>
+  <div class="pl-sub">Full Stack Developer</div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ══════════ Navigation ══════════ -->
+<header id="siteNav" class="fixed top-0 inset-x-0 z-50">
+  <div class="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16">
+    <nav class="flex items-center justify-between h-[72px]">
+      <a href="#home" class="font-serif text-[22px] font-medium tracking-tight">SMV<span class="text-clay">.</span></a>
+      <div class="hidden md:flex items-center gap-9 text-[13px] font-extrabold tracking-wide">
+        <a href="#about" class="nav-link u-link">About</a>
+        <a href="#projects" class="nav-link u-link">Projects</a>
+        <a href="#education" class="nav-link u-link">Education</a>
+        <a href="#contact" class="nav-link u-link">Contact</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="mailto:saimanikantavarma2004@gmail.com" class="hidden sm:inline-flex items-center gap-2 bg-ink text-paper text-[13px] font-extrabold rounded-full px-5 py-2.5 hover:bg-clay transition-colors duration-300">
+          Hire me
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <button id="menuBtn" aria-label="Open menu" class="md:hidden w-10 h-10 flex items-center justify-center rounded-full border hairline">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8h16M4 16h10"/></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ══════════ Mobile menu ══════════ -->
+<div id="mobileMenu" class="fixed inset-0 z-[300] bg-paper flex flex-col px-8 pb-10">
+  <div class="flex items-center justify-between h-[72px]">
+    <span class="font-serif text-[22px] font-medium">SMV<span class="text-clay">.</span></span>
+    <button id="menuClose" aria-label="Close menu" class="w-10 h-10 flex items-center justify-center rounded-full border hairline">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <nav class="flex-1 flex flex-col justify-center gap-4">
+    <a href="#home" class="mm-link"><span class="font-serif italic text-clay text-lg w-7">01</span><span class="font-serif font-light text-[2.6rem] leading-none">Home</span></a>
+    <a href="#about" class="mm-link"><span class="font-serif italic text-clay text-lg w-7">02</span><span class="font-serif font-light text-[2.6rem] leading-none">About</span></a>
+    <a href="#projects" class="mm-link"><span class="font-serif italic text-clay text-lg w-7">03</span><span class="font-serif font-light text-[2.6rem] leading-none">Projects</span></a>
+    <a href="#education" class="mm-link"><span class="font-serif italic text-clay text-lg w-7">04</span><span class="font-serif font-light text-[2.6rem] leading-none">Education</span></a>
+    <a href="#contact" class="mm-link"><span class="font-serif italic text-clay text-lg w-7">05</span><span class="font-serif font-light text-[2.6rem] leading-none">Contact</span></a>
+  </nav>
+  <div class="border-t hairline pt-6 flex items-center justify-between text-sm font-bold">
+    <a href="mailto:saimanikantavarma2004@gmail.com" class="text-ink/60 hover:text-clay transition-colors break-all mr-4">saimanikantavarma2004@gmail.com</a>
+    <a href="https://github.com/manikantavarma2889/" target="_blank" rel="noopener" aria-label="GitHub" class="shrink-0">
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .31.21.68.8.56A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+    </a>
+  </div>
+</div>
+
+<main>
+<!-- ══════════ Hero ══════════ -->
+<section id="home" class="relative min-h-screen flex flex-col justify-center pt-28 pb-14">
+  <div class="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 relative">
+    <!-- decorative asterisk -->
+    <svg class="absolute -top-6 right-4 sm:right-16 w-28 h-28 sm:w-44 sm:h-44 text-clay/10 spin-slow pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>
+
+    <!-- meta row -->
+    <div class="fade-item d1 flex flex-wrap items-center gap-x-8 gap-y-2 text-[11px] sm:text-xs font-extrabold tracking-[0.22em] uppercase text-ink/50">
+      <span>Full Stack Developer</span>
+      <span class="ml-auto inline-flex items-center gap-2.5 text-clay">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-clay opacity-60"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-clay"></span>
+        </span>
+        Open to opportunities
+      </span>
+    </div>
+
+    <!-- name -->
+    <div class="relative mt-8 sm:mt-10">
+      <h1 class="display font-serif font-light leading-[0.95] tracking-[-0.02em] text-[clamp(3.1rem,10.5vw,8.6rem)]">
+        <span class="line"><span class="line-inner">Penumathsa</span></span>
+        <span class="line ml-[7vw]"><span class="line-inner"><em class="italic">Sai Manikanta</em></span></span>
+        <span class="line ml-[14vw]"><span class="line-inner">Varma<span class="text-clay">.</span></span></span>
+      </h1>
+
+      <!-- rotating badge -->
+      <a href="#contact" class="badge-spin hidden lg:flex absolute right-0 bottom-2" aria-label="Scroll to contact">
+        <svg class="ring" viewBox="0 0 132 132">
+          <defs><path id="circlePath" d="M66,66 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs>
+          <text><textPath href="#circlePath">OPEN TO WORK • FULL STACK DEV •&#160;</textPath></text>
+        </svg>
+        <span class="badge-center">
+          <svg class="w-4.5 h-4.5 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </span>
+      </a>
+    </div>
+
+    <!-- summary + actions -->
+    <div class="fade-item d2 mt-10 sm:mt-14 grid lg:grid-cols-12 gap-10 items-end">
+      <p class="lg:col-span-6 text-base sm:text-lg leading-relaxed text-ink/65 max-w-xl">
+        I design and ship <span class="font-bold text-ink">complete web applications</span> — from MongoDB and PostgreSQL
+        schemas to Node.js APIs, polished React interfaces — with a bias
+        for clean code, calm UX and details that feel considered.
+      </p>
+      <div class="lg:col-span-6 flex flex-wrap lg:justify-end items-center gap-4">
+        <a href="#projects" class="group inline-flex items-center gap-3 bg-ink text-paper font-extrabold text-sm rounded-full pl-7 pr-2 py-2 hover:bg-clay transition-colors duration-300">
+          View projects
+          <span class="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center transition-transform duration-300 group-hover:translate-y-0.5">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+          </span>
+        </a>
+        <a href="#contact" class="inline-flex items-center gap-2 border border-ink/25 rounded-full px-7 py-3.5 font-extrabold text-sm hover:bg-ink hover:text-paper transition-colors duration-300">Get in touch</a>
+        <div class="flex items-center gap-2.5 lg:ml-2">
+          <a href="https://github.com/manikantavarma2889/" target="_blank" rel="noopener" aria-label="GitHub" class="icon-circle">
+            <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .31.21.68.8.56A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/sai-manikanta-varma-cse/" target="_blank" rel="noopener" aria-label="LinkedIn" class="icon-circle">
+            <svg class="w-[17px] h-[17px]" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+          </a>
+          <a href="mailto:saimanikantavarma2004@gmail.com" aria-label="Email" class="icon-circle">
+            <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ Skills marquee ══════════ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <div class="flex items-center pr-[34px]">
+      <span class="mq-item">JavaScript</span><span class="mq-sep">✦</span>
+      <span class="mq-item">TypeScript</span><span class="mq-sep">✦</span>
+      <span class="mq-item">React.js</span><span class="mq-sep">✦</span>
+      <span class="mq-item">Node.js</span><span class="mq-sep">✦</span>
+      <span class="mq-item">Express.js</span><span class="mq-sep">✦</span>
+      <span class="mq-item">MongoDB Atlas</span><span class="mq-sep">✦</span>
+      <span class="mq-item">LangChain</span><span class="mq-sep">✦</span>
+      <span class="mq-item">OpenAI APIs</span><span class="mq-sep">✦</span>
+      <span class="mq-item">PostgreSQL</span><span class="mq-sep">✦</span>
+      <span class="mq-item">Tailwind CSS</span><span class="mq-sep">✦</span>
+      <span class="mq-item">Vitest</span><span class="mq-sep">✦</span>
+      <span class="mq-item">Playwright</span><span class="mq-sep">✦</span>
+      <span class="mq-item">Vercel</span><span class="mq-sep">✦</span>
+      <span class="mq-item">GitHub Actions</span><span class="mq-sep">✦</span>
+    </div>
+    <div class="flex items-center pr-[34px]">
+      <span class="mq-item">JavaScript</span><span class="mq-sep">✦</span>
+      <span class="mq-item">TypeScript</span><span class="mq-sep">✦</span>
+      <span class="mq-item">React.js</span><span class="mq-sep">✦</span>
+      <span class="mq-item">Node.js</span><span class="mq-sep">✦</span>
+      <span class="mq-item">Express.js</span><span class="mq-sep">✦</span>
+      <span class="mq-item">MongoDB Atlas</span><span class="mq-sep">✦</span>
+      <span class="mq-item">LangChain</span><span class="mq-sep">✦</span>
+      <span class="mq-item">OpenAI APIs</span><span class="mq-sep">✦</span>
+      <span class="mq-item">PostgreSQL</span><span class="mq-sep">✦</span>
+      <span class="mq-item">Tailwind CSS</span><span class="mq-sep">✦</span>
+      <span class="mq-item">Vitest</span><span class="mq-sep">✦</span>
+      <span class="mq-item">Playwright</span><span class="mq-sep">✦</span>
+      <span class="mq-item">Vercel</span><span class="mq-sep">✦</span>
+      <span class="mq-item">GitHub Actions</span><span class="mq-sep">✦</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ About ══════════ -->
+<section id="about" class="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
+  <div class="flex items-center gap-5 reveal">
+    <span class="font-serif italic text-clay text-xl">01</span>
+    <span class="text-xs font-extrabold tracking-[0.3em] uppercase">About</span>
+    <span class="flex-1 h-px bg-ink/10"></span>
+  </div>
+
+  <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 mt-12 sm:mt-16">
+    <!-- portrait card -->
+    <div class="lg:col-span-4 reveal">
+      <div class="group relative aspect-[4/5] rounded-3xl border hairline bg-cream overflow-hidden">
+        <span class="absolute top-0 left-0 h-1.5 w-20 bg-clay"></span>
+        <svg class="absolute top-7 right-7 w-8 h-8 text-clay spin-slow z-10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9 4.9 19.1"/></svg>
+        <div class="absolute inset-0">
+          <img src="details/Pic.jpg" alt="P. Sai Manikanta Varma" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+        </div>
+        <div class="absolute bottom-0 inset-x-0 p-5 border-t hairline bg-paper/85 backdrop-blur-sm flex items-center justify-between gap-3 z-10">
+          <div>
+            <p class="font-serif italic text-lg leading-tight">P. Sai Manikanta Varma</p>
+            <p class="text-[10px] font-extrabold tracking-[0.22em] uppercase text-ink/45 mt-1">Full Stack Developer</p>
+          </div>
+          <span class="w-2.5 h-2.5 rounded-full bg-clay shrink-0"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- bio -->
+    <div class="lg:col-span-8">
+      <p class="reveal font-serif font-light text-[1.7rem] sm:text-4xl lg:text-[2.7rem] leading-[1.25] tracking-tight">
+        I build <em class="italic text-clay">end-to-end</em> web products — from the database schema
+        to the last pixel — with clean code and a calm, considered eye.
+      </p>
+      <div class="grid sm:grid-cols-2 gap-8 mt-10">
+        <p class="reveal text-[15px] leading-relaxed text-ink/65" style="transition-delay:.1s">
+          I am a 2026 Computer Science and Engineering graduate from Vel Tech and a full-stack developer who enjoys owning the whole slice — schema, API, interface and deployment. My projects use React, TypeScript, Node.js and Express, backed by MongoDB and PostgreSQL. I built Sadhana Prep to bring resume analysis, voice interviews and evidence-backed feedback together, using LangChain with support for OpenAI LLM APIs.
+        </p>
+        <p class="reveal text-[15px] leading-relaxed text-ink/65" style="transition-delay:.2s">
+          Away from the browser I explore machine learning — my CNN-based bone-fracture classifier
+          taught me how software can genuinely assist people. I care about writing code teammates can
+          read six months later, and interfaces that feel quiet, fast and obvious.
+        </p>
+      </div>
+      <div class="reveal mt-10 flex flex-wrap gap-x-10 gap-y-3 text-sm font-bold" style="transition-delay:.3s">
+        <span class="flex items-center gap-2.5"><span class="text-clay">✦</span>B.Tech CSE · Vel Tech · 2026</span>
+        <span class="flex items-center gap-2.5"><span class="text-clay">✦</span>Open to full-time &amp; internships</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- stats band -->
+  <div class="mt-16 sm:mt-24 border-y hairline grid grid-cols-2 lg:grid-cols-4">
+    <div class="reveal py-9 sm:py-11 text-center border-b lg:border-b-0 hairline lg:border-r px-4">
+      <p class="font-serif font-light text-4xl sm:text-5xl"><span class="stat-num" data-count="8.2">0</span></p>
+      <p class="text-[10.5px] font-extrabold tracking-[0.2em] uppercase text-ink/45 mt-2.5">CGPA · B.Tech CSE</p>
+    </div>
+    <div class="reveal py-9 sm:py-11 text-center lg:border-r hairline px-4" style="transition-delay:.1s">
+      <p class="font-serif font-light text-4xl sm:text-5xl"><span class="stat-num" data-count="98">0</span><span class="text-clay">%</span></p>
+      <p class="text-[10.5px] font-extrabold tracking-[0.2em] uppercase text-ink/45 mt-2.5">Class X · Sri Chaitanya</p>
+    </div>
+    <div class="reveal py-9 sm:py-11 text-center border-t border-r hairline lg:border-t-0 px-4" style="transition-delay:.2s">
+      <p class="font-serif font-light text-3xl sm:text-4xl">2026 may</p>
+      <p class="text-[10.5px] font-extrabold tracking-[0.2em] uppercase text-ink/45 mt-2.5">recent graduate</p>
+    </div>
+    <div class="reveal py-9 sm:py-11 text-center border-t hairline lg:border-t-0 px-4" style="transition-delay:.3s">
+      <p class="font-serif font-light text-4xl sm:text-5xl"><span class="stat-num" data-count="25">0</span><span class="text-clay">+</span></p>
+      <p class="text-[10.5px] font-extrabold tracking-[0.2em] uppercase text-ink/45 mt-2.5">Tools &amp; Technologies</p>
+    </div>
+  </div>
+
+  <!-- toolbox -->
+  <div class="mt-16 sm:mt-20">
+    <div class="flex items-center gap-5 reveal">
+      <span class="font-serif italic text-xl">Toolbox</span>
+      <span class="flex-1 h-px bg-ink/10"></span>
+      <span class="text-xs font-extrabold text-ink/35">08 categories</span>
+    </div>
+    <div class="mt-8">
+      <div class="skill-row border-t hairline py-6 px-2 sm:px-4 grid md:grid-cols-[190px_1fr_36px] gap-3 md:gap-6 items-center reveal" style="transition-delay:0.00s">
+        <span class="text-sm font-extrabold">Languages</span>
+        <div class="flex flex-wrap gap-2"><span class="pill">JavaScript (ES6+)</span><span class="pill">TypeScript</span><span class="pill">Python</span><span class="pill">SQL</span></div>
+        <span class="hidden md:block text-xs font-bold text-ink/30 text-right">04</span>
+      </div>
+      <div class="skill-row border-t hairline py-6 px-2 sm:px-4 grid md:grid-cols-[190px_1fr_36px] gap-3 md:gap-6 items-center reveal" style="transition-delay:0.05s">
+        <span class="text-sm font-extrabold">Frontend</span>
+        <div class="flex flex-wrap gap-2"><span class="pill">React.js</span><span class="pill">Next.js</span><span class="pill">Vite</span><span class="pill">HTML5</span><span class="pill">CSS3</span><span class="pill">Tailwind CSS</span><span class="pill">React Router</span></div>
+        <span class="hidden md:block text-xs font-bold text-ink/30 text-right">07</span>
+      </div>
+      <div class="skill-row border-t hairline py-6 px-2 sm:px-4 grid md:grid-cols-[190px_1fr_36px] gap-3 md:gap-6 items-center reveal" style="transition-delay:0.10s">
+        <span class="text-sm font-extrabold">Backend</span>
+        <div class="flex flex-wrap gap-2"><span class="pill">Node.js</span><span class="pill">Express.js</span><span class="pill">RESTful APIs</span><span class="pill">JWT Authentication</span><span class="pill">Zod Validation</span></div>
+        <span class="hidden md:block text-xs font-bold text-ink/30 text-right">05</span>
+      </div>
+      <div class="skill-row border-t hairline py-6 px-2 sm:px-4 grid md:grid-cols-[190px_1fr_36px] gap-3 md:gap-6 items-center reveal" style="transition-delay:0.15s">
+        <span class="text-sm font-extrabold">State Management</span>
+        <div class="flex flex-wrap gap-2"><span class="pill">React Context API</span><span class="pill">TanStack Query</span></div>
+        <span class="hidden md:block text-xs font-bold text-ink/30 text-right">02</span>
+      </div>
+      <div class="skill-row border-t hairline py-6 px-2 sm:px-4 grid md:grid-cols-[190px_1fr_36px] gap-3 md:gap-6 items-center reveal" style="transition-delay:0.20s">
+        <span class="text-sm font-extrabold">Databases</span>
+        <div class="flex flex-wrap gap-2"><span class="pill">MongoDB Atlas</span><span class="pill">Mongoose</span><span class="pill">PostgreSQL</span><span class="pill">MySQL</span><span class="pill">Supabase</span></div>
+        <span class="hidden md:block text-xs font-bold text-ink/30 text-right">05</span>
+      </div>
+      <div class="skill-row border-t hairline py-6 px-2 sm:px-4 grid md:grid-cols-[190px_1fr_36px] gap-3 md:gap-6 items-center reveal" style="transition-delay:0.25s">
+        <span class="text-sm font-extrabold">Cloud &amp; Deployment</span>
+        <div class="flex flex-wrap gap-2"><span class="pill">AWS (Basics)</span><span class="pill">Vercel</span><span class="pill">Render</span></div>
+        <span class="hidden md:block text-xs font-bold text-ink/30 text-right">03</span>
+      </div>
+      <div class="skill-row border-t hairline py-6 px-2 sm:px-4 grid md:grid-cols-[190px_1fr_36px] gap-3 md:gap-6 items-center reveal" style="transition-delay:0.30s">
+        <span class="text-sm font-extrabold">AI &amp; Voice</span>
+        <div class="flex flex-wrap gap-2"><span class="pill">LangChain</span><span class="pill">OpenAI APIs</span><span class="pill">Prompt Engineering</span><span class="pill">Vosk</span><span class="pill">Speech-to-Text</span><span class="pill">Speech Synthesis</span></div>
+        <span class="hidden md:block text-xs font-bold text-ink/30 text-right">06</span>
+      </div>
+      <div class="skill-row border-y hairline py-6 px-2 sm:px-4 grid md:grid-cols-[190px_1fr_36px] gap-3 md:gap-6 items-center reveal" style="transition-delay:0.35s">
+        <span class="text-sm font-extrabold">Testing &amp; Workflow</span>
+        <div class="flex flex-wrap gap-2"><span class="pill">Vitest</span><span class="pill">Playwright</span><span class="pill">Supertest</span><span class="pill">Git</span><span class="pill">GitHub</span><span class="pill">GitHub Actions</span><span class="pill">CI/CD</span><span class="pill">Docker</span><span class="pill">Postman</span><span class="pill">Linux</span><span class="pill">Bash (Shell Scripting)</span><span class="pill">Agile (Basics)</span></div>
+        <span class="hidden md:block text-xs font-bold text-ink/30 text-right">12</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ Projects ══════════ -->
+<section id="projects" class="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
+  <div class="flex items-center gap-5 reveal">
+    <span class="font-serif italic text-clay text-xl">02</span>
+    <span class="text-xs font-extrabold tracking-[0.3em] uppercase">Projects</span>
+    <span class="flex-1 h-px bg-ink/10"></span>
+    <span class="text-xs font-extrabold text-ink/35">(03 featured)</span>
+  </div>
+
+  <div class="flex flex-wrap items-end justify-between gap-6 mt-10 reveal">
+    <h2 class="display font-serif font-light tracking-tight text-4xl sm:text-5xl lg:text-6xl">Selected <em>work</em></h2>
+    <p class="text-sm text-ink/50 font-semibold max-w-xs">Real products, real data, real deployments — click any case study for the full story.</p>
+  </div>
+
+  <div class="mt-14 space-y-10 sm:space-y-14">
+
+    <!-- ── Project 1 : Sadhana Prep ── -->
+    <article id="project-sadhana" class="project-card reveal group border hairline rounded-3xl bg-white/50 overflow-hidden grid lg:grid-cols-2">
+      <div class="dotgrid p-5 sm:p-9 flex items-center bg-cream/60 lg:order-2">
+        <div class="browser">
+          <div class="browser-bar">
+            <span class="b-dot bg-[#E86A5E]"></span><span class="b-dot bg-[#F0BE4F]"></span><span class="b-dot bg-[#79C08A]"></span>
+            <span class="b-url">sadhana-prep.vercel.app</span>
+          </div>
+          <div id="sadhana-slideshow" class="hover-slideshow sadhana-slideshow" aria-label="Sadhana Prep product screenshots">
+            <img src="sadhana/homepage.png" alt="Sadhana Prep homepage with the animated hero, navigation and preparation entry point" style="opacity: 1;" loading="lazy" decoding="async" />
+            <img src="sadhana/session-setup.png" alt="Sadhana Prep session setup with track, role, resume and AI analysis" style="opacity: 0;" loading="lazy" decoding="async" />
+            <img src="sadhana/voice-interview.png" alt="Sadhana AI conducting a live voice interview with captions and messages" style="opacity: 0;" loading="lazy" decoding="async" />
+            <img src="sadhana/feedback-report.png" alt="Sadhana Prep feedback report with scores, metrics and answer evidence" style="opacity: 0;" loading="lazy" decoding="async" />
+          </div>
+        </div>
+      </div>
+      <div class="p-7 sm:p-10 lg:p-12 flex flex-col justify-center">
+        <div class="flex items-center gap-3 text-[11px] font-extrabold tracking-[0.25em] uppercase text-ink/40">
+          <span class="font-serif italic normal-case tracking-normal text-lg text-clay">01</span>· AI Interviews &amp; Learning
+        </div>
+        <h3 class="mt-4 font-serif font-light text-3xl sm:text-4xl tracking-tight">Sadhana Prep</h3>
+        <p class="mt-4 text-[15px] leading-relaxed text-ink/65">
+          An AI interview and learning platform that brings resume and role analysis, live voice practice and evidence-backed feedback into one workspace. Built with MERN and TypeScript, it adapts questions to the chosen track, difficulty and duration, with a Prep Hub for DSA, system design and core computer science.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="pill">React</span><span class="pill">TypeScript</span><span class="pill">Node.js</span><span class="pill">Express.js</span><span class="pill">MongoDB Atlas</span><span class="pill">LangChain</span><span class="pill">OpenAI APIs</span><span class="pill">Vitest</span><span class="pill">Vercel</span>
+        </div>
+        <div class="mt-9 flex items-center gap-4">
+          <button type="button" data-project="sadhana" class="case-btn">Read case study
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </button>
+          <a href="https://github.com/manikantavarma2889/Sadhana_Prep" target="_blank" rel="noopener" aria-label="View Sadhana Prep on GitHub" class="icon-circle">
+            <svg class="w-[17px] h-[17px]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .31.21.68.8.56A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+          </a>
+          <a href="https://sadhana-prep.vercel.app" target="_blank" rel="noopener" aria-label="Visit Sadhana Prep live website" class="icon-circle" title="Live Project">
+            <svg class="w-[17px] h-[17px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10Z"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── Project 2 : Telugu Ruchulu ── -->
+    <article class="project-card reveal group border hairline rounded-3xl bg-white/50 overflow-hidden grid lg:grid-cols-2">
+      <div class="dotgrid p-5 sm:p-9 flex items-center bg-cream/60">
+        <div class="browser">
+          <div class="browser-bar">
+            <span class="b-dot bg-[#E86A5E]"></span><span class="b-dot bg-[#F0BE4F]"></span><span class="b-dot bg-[#79C08A]"></span>
+            <span class="b-url">telugu-ruchulu.vercel.app</span>
+          </div>
+          <div class="hover-slideshow relative w-full h-[228px] sm:h-[264px] overflow-hidden bg-cream">
+            <img src="Teluguruchulu/tr-1.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700" style="opacity: 1;" alt="Telugu Ruchulu 1" />
+            <img src="Teluguruchulu/tr-2.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700" style="opacity: 0;" alt="Telugu Ruchulu 2" />
+            <img src="Teluguruchulu/tr-3.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700" style="opacity: 0;" alt="Telugu Ruchulu 3" />
+          </div>
+        </div>
+      </div>
+      <div class="p-7 sm:p-10 lg:p-12 flex flex-col justify-center">
+        <div class="flex items-center gap-3 text-[11px] font-extrabold tracking-[0.25em] uppercase text-ink/40">
+          <span class="font-serif italic normal-case tracking-normal text-lg text-clay">02</span>· Full-Stack Platform
+        </div>
+        <h3 class="mt-4 font-serif font-light text-3xl sm:text-4xl tracking-tight">Telugu Ruchulu</h3>
+        <p class="mt-4 text-[15px] leading-relaxed text-ink/65">
+          A food-ordering platform for authentic Telugu cuisine. Customers browse a live menu and check
+          out through a fast storefront, while a separate admin dashboard handles menu management and
+          order tracking — backed by a normalized PostgreSQL schema and deployed on Vercel.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="pill">React.js</span><span class="pill">TypeScript</span><span class="pill">Express.js</span><span class="pill">PostgreSQL</span><span class="pill">Vite</span><span class="pill">Tailwind CSS</span><span class="pill">Vercel</span>
+        </div>
+        <div class="mt-9 flex items-center gap-4">
+          <button data-project="ruchulu" class="case-btn">Read case study
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </button>
+          <a href="https://github.com/manikantavarma2889/" target="_blank" rel="noopener" aria-label="View code on GitHub" class="icon-circle">
+            <svg class="w-[17px] h-[17px]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .31.21.68.8.56A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+          </a>
+          <a href="https://telugu-ruchulu.vercel.app/" target="_blank" rel="noopener" aria-label="View Live Project" class="icon-circle" title="Live Project">
+            <svg class="w-[17px] h-[17px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+        </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ── Project 3 : CampusConnect ── -->
+    <article class="project-card reveal group border hairline rounded-3xl bg-white/50 overflow-hidden grid lg:grid-cols-2">
+      <div class="dotgrid p-5 sm:p-9 flex items-center bg-cream/60 lg:order-2">
+        <div class="browser">
+          <div class="browser-bar">
+            <span class="b-dot bg-[#E86A5E]"></span><span class="b-dot bg-[#F0BE4F]"></span><span class="b-dot bg-[#79C08A]"></span>
+            <span class="b-url">student-event-dashboard-phi.vercel.app</span>
+          </div>
+          <div class="hover-slideshow relative w-full h-[228px] sm:h-[264px] overflow-hidden bg-cream">
+            <img src="campusconnect/cp-1.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700" style="opacity: 1;" alt="CampusConnect 1" />
+            <img src="campusconnect/cp-2.png" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700" style="opacity: 0;" alt="CampusConnect 2" />
+          </div>
+        </div>
+      </div>
+      <div class="p-7 sm:p-10 lg:p-12 flex flex-col justify-center lg:order-1">
+        <div class="flex items-center gap-3 text-[11px] font-extrabold tracking-[0.25em] uppercase text-ink/40">
+          <span class="font-serif italic normal-case tracking-normal text-lg text-clay">03</span>· Management &amp; Analytics
+        </div>
+        <h3 class="mt-4 font-serif font-light text-3xl sm:text-4xl tracking-tight">CampusConnect</h3>
+        <p class="mt-4 text-[15px] leading-relaxed text-ink/65">
+          An event management and analytics platform for campus life. JWT authentication with
+          role-based access keeps student, organizer and admin journeys separate, while an interactive
+          dashboard turns registration data into decisions. PostgreSQL on Supabase — frontend on
+          Vercel, API on Render.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-2">
+          <span class="pill">React.js</span><span class="pill">TypeScript</span><span class="pill">Node.js</span><span class="pill">Express.js</span><span class="pill">Supabase</span><span class="pill">JWT</span><span class="pill">Render</span>
+        </div>
+        <div class="mt-9 flex items-center gap-4">
+          <button data-project="campus" class="case-btn">Read case study
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </button>
+          <a href="https://github.com/manikantavarma2889/" target="_blank" rel="noopener" aria-label="View code on GitHub" class="icon-circle">
+            <svg class="w-[17px] h-[17px]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .31.21.68.8.56A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+          </a>
+          <a href="https://student-event-dashboard-phi.vercel.app/" target="_blank" rel="noopener" aria-label="View Live Project" class="icon-circle" title="Live Project">
+            <svg class="w-[17px] h-[17px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </a>
+        </div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════ Education ══════════ -->
+<section id="education" class="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32">
+  <div class="flex items-center gap-5 reveal">
+    <span class="font-serif italic text-clay text-xl">03</span>
+    <span class="text-xs font-extrabold tracking-[0.3em] uppercase">Education</span>
+    <span class="flex-1 h-px bg-ink/10"></span>
+    <span class="text-xs font-extrabold text-ink/35 hidden sm:inline">2026 — expected B.Tech</span>
+  </div>
+
+  <h2 class="display font-serif font-light tracking-tight text-4xl sm:text-5xl lg:text-6xl mt-10 reveal">The journey <em>so far</em></h2>
+
+  <div class="mt-12">
+    <div class="reveal group border-t hairline py-7 px-2 sm:px-4 grid md:grid-cols-[150px_1fr_auto] gap-2 md:gap-10 items-baseline transition-colors duration-300 hover:bg-white/60">
+      <span class="text-sm font-extrabold text-ink/40 tabular-nums">2022 — 2026</span>
+      <div>
+        <h3 class="font-serif font-medium text-xl sm:text-2xl tracking-tight transition-colors duration-300 group-hover:text-clay">B.Tech, Computer Science Engineering</h3>
+        <p class="text-sm text-ink/55 font-semibold mt-1.5 leading-relaxed">Vel Tech Rangarajan Dr. Sagunthala R&amp;D Institute of Science and Technology</p>
+      </div>
+      <span class="justify-self-start md:justify-self-end text-[13px] font-extrabold px-4 py-1.5 rounded-full border hairline bg-paper">CGPA 8.2</span>
+    </div>
+    <div class="reveal group border-t hairline py-7 px-2 sm:px-4 grid md:grid-cols-[150px_1fr_auto] gap-2 md:gap-10 items-baseline transition-colors duration-300 hover:bg-white/60" style="transition-delay:.08s">
+      <span class="text-sm font-extrabold text-ink/40 tabular-nums">2020 — 2022</span>
+      <div>
+        <h3 class="font-serif font-medium text-xl sm:text-2xl tracking-tight transition-colors duration-300 group-hover:text-clay">Senior Secondary — Class XII</h3>
+        <p class="text-sm text-ink/55 font-semibold mt-1.5 leading-relaxed">Sri Chaitanya Junior College</p>
+      </div>
+      <span class="justify-self-start md:justify-self-end text-[13px] font-extrabold px-4 py-1.5 rounded-full border hairline bg-paper">73%</span>
+    </div>
+    <div class="reveal group border-y hairline py-7 px-2 sm:px-4 grid md:grid-cols-[150px_1fr_auto] gap-2 md:gap-10 items-baseline transition-colors duration-300 hover:bg-white/60" style="transition-delay:.16s">
+      <span class="text-sm font-extrabold text-ink/40 tabular-nums">2019 — 2020</span>
+      <div>
+        <h3 class="font-serif font-medium text-xl sm:text-2xl tracking-tight transition-colors duration-300 group-hover:text-clay">Secondary Education — Class X</h3>
+        <p class="text-sm text-ink/55 font-semibold mt-1.5 leading-relaxed">Sri Chaitanya High School</p>
+      </div>
+      <span class="justify-self-start md:justify-self-end text-[13px] font-extrabold px-4 py-1.5 rounded-full border hairline bg-paper">98%</span>
+    </div>
+  </div>
+
+  <!-- credentials & beyond -->
+  <div class="mt-16 sm:mt-20 flex items-center gap-5 reveal">
+    <span class="font-serif italic text-xl">Credentials &amp; beyond</span>
+    <span class="flex-1 h-px bg-ink/10"></span>
+  </div>
+
+  <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 mt-8">
+    <div class="space-y-3">
+      <div class="reveal flex items-center gap-5 border hairline rounded-2xl p-5 transition-all duration-300 hover:bg-white/60 hover:border-ink/25">
+        <span class="w-12 h-12 rounded-full bg-cream border hairline flex items-center justify-center text-clay shrink-0">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg>
+        </span>
+        <div>
+          <p class="font-extrabold text-[15px]">Complete Bash Shell Scripting</p>
+          <p class="text-sm text-ink/50 font-semibold mt-1.5 flex items-center gap-2">
+            <span>Infosys Springboard</span>
+            <span class="text-ink/30">·</span>
+            <a href="https://infyspringboard.onwingspan.com/public-assets/infosysheadstart/cert/lex_auth_01329459742861721612680_shared/1-173f7c7b-dfc6-49e6-93cb-8cb576012802.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-1 bg-[#BC4B23] text-[#FAF8F3] px-3 py-1 rounded-full text-xs font-bold hover:bg-[#1B1815] transition-colors duration-300">
+              Certificate ↗
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="reveal flex items-center gap-5 border hairline rounded-2xl p-5 transition-all duration-300 hover:bg-white/60 hover:border-ink/25" style="transition-delay:.08s">
+        <span class="w-12 h-12 rounded-full bg-cream border hairline flex items-center justify-center text-clay shrink-0">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg>
+        </span>
+        <div>
+          <p class="font-extrabold text-[15px]">Git and GitHub Essentials</p>
+          <p class="text-sm text-ink/50 font-semibold mt-1.5 flex items-center gap-2">
+            <span>PrepInsta</span>
+            <span class="text-ink/30">·</span>
+            <a href="https://drive.google.com/file/d/17SEF272zvt5YErTZYvXvG2XtXi-AEKHi/view" target="_blank" rel="noopener" class="inline-flex items-center gap-1 bg-[#BC4B23] text-[#FAF8F3] px-3 py-1 rounded-full text-xs font-bold hover:bg-[#1B1815] transition-colors duration-300">
+              Certificate ↗
+            </a>
+          </p>
+        </div>
+      </div>
+      <div class="reveal flex items-center gap-5 border hairline rounded-2xl p-5 transition-all duration-300 hover:bg-white/60 hover:border-ink/25" style="transition-delay:.16s">
+        <span class="w-12 h-12 rounded-full bg-cream border hairline flex items-center justify-center text-clay shrink-0">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13 17 22l-5-3-5 3 1.5-9"/></svg>
+        </span>
+        <div>
+          <p class="font-extrabold text-[15px]">JavaScript Fundamentals</p>
+          <p class="text-sm text-ink/50 font-semibold mt-1.5 flex items-center gap-2">
+            <span>PrepInsta</span>
+            <span class="text-ink/30">·</span>
+            <a href="https://drive.google.com/file/d/1Fu8LEPOU0zIIk0C6V8aXZAU7E2tfUua_/view" target="_blank" rel="noopener" class="inline-flex items-center gap-1 bg-[#BC4B23] text-[#FAF8F3] px-3 py-1 rounded-full text-xs font-bold hover:bg-[#1B1815] transition-colors duration-300">
+              Certificate ↗
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="space-y-6">
+      <div class="reveal bg-ink text-paper rounded-3xl p-7 sm:p-9 relative overflow-hidden">
+        <svg class="absolute -top-8 -right-8 w-36 h-36 text-paper/5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0V4ZM7 6H4a1 1 0 0 0-1 1c0 2 1.5 3.5 4 3.5M17 6h3a1 1 0 0 1 1 1c0 2-1.5 3.5-4 3.5"/></svg>
+        <span class="inline-flex w-11 h-11 rounded-full bg-clay items-center justify-center">
+          <svg class="w-5 h-5 text-paper" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0V4ZM7 6H4a1 1 0 0 0-1 1c0 2 1.5 3.5 4 3.5M17 6h3a1 1 0 0 1 1 1c0 2-1.5 3.5-4 3.5"/></svg>
+        </span>
+        <h3 class="font-serif font-light text-2xl sm:text-3xl mt-5 tracking-tight">1st Prize — Prompt Wars</h3>
+        <p class="text-[11px] font-extrabold tracking-[0.25em] uppercase text-claylight mt-2">Tantarz 2025 · Vel Tech</p>
+        <p class="text-sm text-paper/60 font-semibold leading-relaxed mt-4">Took first place in the prompt-engineering battle at Vel Tech's annual tech fest — out-crafting the field on precision, creativity and iteration speed.</p>
+      </div>
+
+      <div class="reveal border hairline rounded-3xl p-7 sm:p-9 transition-colors duration-300 hover:bg-white/60" style="transition-delay:.1s">
+        <span class="inline-flex w-11 h-11 rounded-full bg-cream border hairline items-center justify-center text-clay">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        <h3 class="font-serif font-light text-2xl mt-5 tracking-tight">Unnat Bharat Abhiyan — Volunteer</h3>
+        <p class="text-[11px] font-extrabold tracking-[0.25em] uppercase text-ink/40 mt-2">Leadership · Community Impact</p>
+        <p class="text-sm text-ink/60 font-semibold leading-relaxed mt-4">Volunteered with UBA on rural development initiatives — organizing village events, surveys and awareness drives that connected campus skills with real community needs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ Contact (dark) ══════════ -->
+<section id="contact" class="bg-ink text-paper">
+  <div class="w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-16 pt-24 sm:pt-32 pb-12">
+    <div class="flex items-center gap-5 reveal">
+      <span class="font-serif italic text-claylight text-xl">04</span>
+      <span class="text-xs font-extrabold tracking-[0.3em] uppercase text-paper/50">Contact</span>
+      <span class="flex-1 h-px bg-white/10"></span>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-14 lg:gap-20 mt-12">
+      <!-- left -->
+      <div>
+        <h2 class="display font-serif font-light tracking-tight text-4xl sm:text-5xl lg:text-[3.6rem] leading-[1.08] reveal">
+          Let's build something <em>worth shipping</em>.
+        </h2>
+        <p class="mt-6 text-paper/55 font-semibold leading-relaxed max-w-md reveal" style="transition-delay:.1s">
+          I'm currently open to full-time roles, internships and freelance collaborations.
+          If you have an idea, a role, or just want to talk shop — my inbox is always open.
+        </p>
+
+        <div class="mt-10 flex items-center gap-4 reveal" style="transition-delay:.15s">
+          <a href="mailto:saimanikantavarma2004@gmail.com" class="font-serif font-light text-lg sm:text-2xl lg:text-[1.7rem] tracking-tight break-all leading-snug border-b border-white/25 pb-1 hover:text-claylight hover:border-claylight transition-colors duration-300">
+            saimanikantavarma2004@gmail.com
+          </a>
+          <button id="copyEmail" aria-label="Copy email address" class="w-11 h-11 shrink-0 rounded-full border border-white/20 flex items-center justify-center text-paper/70 hover:text-ink hover:bg-paper hover:border-paper transition-all duration-300">
+            <svg class="i-copy w-[17px] h-[17px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2.5"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <svg class="i-check w-[17px] h-[17px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+          </button>
+        </div>
+
+        <div class="mt-10 border-t border-white/10 reveal" style="transition-delay:.2s">
+          <a href="mailto:saimanikantavarma2004@gmail.com" class="group flex items-center justify-between gap-4 py-5 border-b border-white/10">
+            <span class="flex items-center gap-4 min-w-0">
+              <span class="w-10 h-10 shrink-0 rounded-full border border-white/15 flex items-center justify-center text-paper/60 group-hover:border-claylight group-hover:text-claylight transition-colors duration-300">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg>
+              </span>
+              <span class="min-w-0">
+                <span class="block text-[10px] uppercase tracking-[0.25em] text-paper/40 font-extrabold">Email</span>
+                <span class="block font-bold text-sm truncate mt-0.5">saimanikantavarma2004@gmail.com</span>
+              </span>
+            </span>
+            <svg class="w-4 h-4 shrink-0 text-paper/30 group-hover:text-claylight transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+
+          <a href="https://github.com/manikantavarma2889/" target="_blank" rel="noopener" class="group flex items-center justify-between gap-4 py-5 border-b border-white/10">
+            <span class="flex items-center gap-4">
+              <span class="w-10 h-10 shrink-0 rounded-full border border-white/15 flex items-center justify-center text-paper/60 group-hover:border-claylight group-hover:text-claylight transition-colors duration-300">
+                <svg class="w-4.5 h-4.5 w-[18px] h-[18px]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.69 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.35.77 1.04.77 2.1 0 1.52-.01 2.74-.01 3.11 0 .31.21.68.8.56A11.52 11.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+              </span>
+              <span>
+                <span class="block text-[10px] uppercase tracking-[0.25em] text-paper/40 font-extrabold">GitHub</span>
+                <span class="block font-bold text-sm mt-0.5">github.com/manikantavarma2889/</span>
+              </span>
+            </span>
+            <svg class="w-4 h-4 shrink-0 text-paper/30 group-hover:text-claylight transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/sai-manikanta-varma-cse/" target="_blank" rel="noopener" class="group flex items-center justify-between gap-4 py-5 border-b border-white/10">
+            <span class="flex items-center gap-4">
+              <span class="w-10 h-10 shrink-0 rounded-full border border-white/15 flex items-center justify-center text-paper/60 group-hover:border-claylight group-hover:text-claylight transition-colors duration-300">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+              </span>
+              <span>
+                <span class="block text-[10px] uppercase tracking-[0.25em] text-paper/40 font-extrabold">LinkedIn</span>
+                <span class="block font-bold text-sm mt-0.5">in/sai-manikanta-varma-cse/</span>
+              </span>
+            </span>
+            <svg class="w-4 h-4 shrink-0 text-paper/30 group-hover:text-claylight transition-colors duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- right : form -->
+      <div class="reveal border border-white/10 rounded-3xl bg-white/[0.03] p-6 sm:p-9 h-max" style="transition-delay:.15s">
+        <div class="flex items-center justify-between">
+          <h3 class="font-serif font-light text-2xl sm:text-[1.7rem] tracking-tight">Send a message</h3>
+          <span class="font-serif italic text-claylight text-lg">✳</span>
+        </div>
+        <p class="text-paper/45 text-sm font-semibold mt-2">Usually responds within a day.</p>
+
+        <form id="contactForm" class="mt-8 space-y-5" novalidate>
+          <div>
+            <label for="f-name" class="block text-[10.5px] uppercase tracking-[0.25em] text-paper/45 font-extrabold mb-2.5">Your name</label>
+            <input id="f-name" type="text" class="field" placeholder="Ada Lovelace" autocomplete="name" />
+            <p class="err hidden text-[13px] font-bold text-[#F2A48E] mt-2"></p>
+          </div>
+          <div>
+            <label for="f-email" class="block text-[10.5px] uppercase tracking-[0.25em] text-paper/45 font-extrabold mb-2.5">Email address</label>
+            <input id="f-email" type="email" class="field" placeholder="you@company.com" autocomplete="email" />
+            <p class="err hidden text-[13px] font-bold text-[#F2A48E] mt-2"></p>
+          </div>
+          <div>
+            <label for="f-msg" class="block text-[10.5px] uppercase tracking-[0.25em] text-paper/45 font-extrabold mb-2.5">Message</label>
+            <textarea id="f-msg" rows="5" class="field resize-none" placeholder="Tell me about your project, role or idea…"></textarea>
+            <p class="err hidden text-[13px] font-bold text-[#F2A48E] mt-2"></p>
+          </div>
+          <button id="sendBtn" type="submit" class="group w-full inline-flex items-center justify-center gap-3 bg-paper text-ink font-extrabold text-sm rounded-full py-4 hover:bg-clay hover:text-paper transition-colors duration-300 disabled:opacity-60 disabled:pointer-events-none">
+            Send message
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <div class="mt-24 border-t border-white/10 pt-8 pb-2 flex flex-col sm:flex-row items-center justify-between gap-5">
+      <p class="text-[13px] font-bold text-paper/40">© 2026 Penumathsa Sai Manikanta Varma</p>
+      <p class="text-[13px] font-bold text-paper/40 font-serif italic">Designed &amp; engineered with care</p>
+      <button id="toTop" aria-label="Back to top" class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-paper hover:bg-paper hover:text-ink hover:border-paper transition-all duration-300">
+        <svg class="w-4.5 h-4.5 w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ══════════ Project modal ══════════ -->
+<div id="modal" class="fixed inset-0 hidden items-center justify-center p-4 sm:p-6">
+  <div class="modal-backdrop absolute inset-0 bg-ink/70 backdrop-blur-sm"></div>
+  <div class="modal-card relative w-full max-w-2xl bg-paper text-ink rounded-3xl border hairline max-h-[88vh] overflow-y-auto">
+    <button id="modalClose" aria-label="Close" class="absolute top-5 right-5 w-10 h-10 rounded-full border hairline flex items-center justify-center hover:bg-ink hover:text-paper transition-colors duration-300 z-10">
+      <svg class="w-4.5 h-4.5 w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="p-7 sm:p-10 border-b hairline">
+      <div class="flex items-center gap-3 text-[11px] font-extrabold tracking-[0.25em] uppercase text-ink/45">
+        <span id="modalTag"></span><span class="text-ink/25">·</span><span id="modalYear"></span>
+      </div>
+      <h3 id="modalTitle" class="font-serif font-light text-3xl sm:text-4xl tracking-tight mt-3"></h3>
+    </div>
+    <div class="p-7 sm:p-10">
+      <p id="modalIntro" class="text-[15px] leading-relaxed text-ink/70"></p>
+      <p class="mt-8 text-[10.5px] uppercase tracking-[0.25em] font-extrabold text-ink/40">What it does</p>
+      <ul id="modalFeatures" class="mt-4 space-y-3"></ul>
+      <p class="mt-8 text-[10.5px] uppercase tracking-[0.25em] font-extrabold text-ink/40">Tech stack</p>
+      <div id="modalStack" class="mt-4 flex flex-wrap gap-2"></div>
+      <p id="modalRole" class="mt-8 font-serif italic text-lg text-ink/60 border-t hairline pt-6"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ Toast ══════════ -->
+<div id="toast" role="status" class="flex items-center gap-3 bg-ink text-paper pl-4 pr-6 py-3.5 rounded-full shadow-2xl max-w-[92vw]">
+  <span class="w-6 h-6 rounded-full bg-clay flex items-center justify-center shrink-0">
+    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 13 4 4L19 7"/></svg>
+  </span>
+  <span id="toastMsg" class="text-sm font-bold"></span>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  const $ = (s) => document.querySelector(s);
+  const $$ = (s) => Array.from(document.querySelectorAll(s));
+  const EMAIL = 'saimanikantavarma2004@gmail.com';
+
+  /* ───────── toast ───────── */
+  let toastTimer;
+  function toast(msg) {
+    $('#toastMsg').textContent = msg;
+    const t = $('#toast');
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  /* ───────── preloader ───────── */
+  const pre = $('#preloader');
+  let revealed = false;
+  function finishLoad() {
+    if (revealed) return;
+    revealed = true;
+    pre.classList.add('done');
+    document.body.classList.add('loaded');
+    setTimeout(() => { if (pre.parentNode) pre.parentNode.removeChild(pre); }, 1000);
+    setTimeout(initReveals, 150);
+  }
+  if (document.readyState === 'complete') setTimeout(finishLoad, 900);
+  else window.addEventListener('load', () => setTimeout(finishLoad, 900));
+  setTimeout(finishLoad, 3500); // safety net
+
+  /* ───────── scroll reveals ───────── */
+  function initReveals() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    $$('.reveal').forEach((el) => io.observe(el));
+
+    // stat counters
+    const cio = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { countUp(e.target); cio.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    $$('.stat-num').forEach((el) => cio.observe(el));
+  }
+
+  function countUp(el) {
+    const raw = el.dataset.count;
+    const target = parseFloat(raw);
+    const dec = raw.indexOf('.') > -1 ? 1 : 0;
+    const dur = 1400, t0 = performance.now();
+    (function tick(t) {
+      const p = Math.min((t - t0) / dur, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = (target * ease).toFixed(dec);
+      if (p < 1) requestAnimationFrame(tick);
+    })(t0);
+  }
+
+  /* ───────── nav ───────── */
+  const nav = $('#siteNav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 24);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const navLinks = $$('.nav-link');
+  const secObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        navLinks.forEach((l) => l.classList.toggle('active', l.hash === '#' + e.target.id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  ['home', 'about', 'projects', 'education', 'contact'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) secObs.observe(el);
+  });
+
+  /* ───────── mobile menu ───────── */
+  const mm = $('#mobileMenu');
+  function openMenu() { mm.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMenu() { mm.classList.remove('open'); document.body.style.overflow = ''; }
+  $('#menuBtn').addEventListener('click', openMenu);
+  $('#menuClose').addEventListener('click', closeMenu);
+  $$('#mobileMenu a[href^="#"]').forEach((a) => a.addEventListener('click', closeMenu));
+
+  /* ───────── project data + modal ───────── */
+  const PROJECTS = {
+    sadhana: {
+          "title": "Sadhana Prep",
+          "tag": "AI Interview Preparation & Learning Platform",
+          "year": "Nov 2026",
+          "intro": "A live MERN platform that connects foundational learning with personalized AI interview practice. Candidates analyze their resume and target role, speak or type answers in a live session, then review evidence-backed feedback. I developed the full-stack experience, from the React interface and Express APIs to MongoDB storage, voice workflows and testing.",
+          "features": [
+                "17 interview tracks with resume-required setup, role/job-description analysis and settings validation before a session starts",
+                "LangChain integrations supporting OpenAI LLM APIs for structured resume analysis, personalized questions and coaching feedback",
+                "Duration-based interviews at Easy, Intermediate or Hard level, with technical questions prioritized alongside resume and behavioral questions",
+                "Spoken AI prompts, live captions, final speech-to-text verification and chat-based answers",
+                "Seven scoring dimensions with verified excerpts from submitted answers, plus strengths and priorities for the next session",
+                "Prep Hub learning tracks for DSA, system design, DBMS, operating systems and computer networks, with saved learning progress",
+                "JWT sessions, rotating refresh tokens, account-scoped records, validated API inputs and bounded PDF processing",
+                "23 passing Vitest tests, Playwright browser checks, GitHub Actions CI configuration and a Vercel deployment backed by MongoDB Atlas"
+          ],
+          "stack": [
+                "React",
+                "TypeScript",
+                "Node.js",
+                "Express.js",
+                "MongoDB Atlas",
+                "Mongoose",
+                "LangChain",
+                "OpenAI API Integration",
+                "Vosk",
+                "TanStack Query",
+                "Vitest",
+                "Playwright",
+                "Vercel",
+                "GitHub Actions"
+          ],
+          "role": "Role — Full-stack development: product interface, API, database, AI integrations, voice experience, testing and deployment"
+    },
+    ruchulu: {
+      title: 'Telugu Ruchulu',
+      tag: 'Full-Stack Food Delivery Platform',
+      year: 'Mar 2026 — May 2026',
+      intro: 'A scalable food-ordering platform built around authentic Telugu cuisine. It pairs a fast, mobile-first customer storefront with a dedicated admin dashboard, sharing one normalized PostgreSQL database and deployed end-to-end on Vercel.',
+      features: [
+        'Customer storefront with live menu browsing, cart and checkout flow',
+        'Admin dashboard for menu management and real-time order tracking',
+        'Normalized PostgreSQL schema covering users, menus, orders and payments',
+        'Component-driven React + TypeScript codebase styled with Tailwind CSS',
+        'Vite-powered build for instant development feedback; deployed on Vercel'
+      ],
+      stack: ['React.js', 'TypeScript', 'Vite', 'Express.js', 'PostgreSQL', 'Tailwind CSS', 'Vercel'],
+      role: 'Role — Solo developer: design, API, database & deployment'
+    },
+    campus: {
+      title: 'CampusConnect',
+      tag: 'Event Management & Analytics Platform',
+      year: 'Nov 2025 — Feb 2026',
+      intro: 'A full-stack platform that brings campus events, registrations and analytics into one place. Secure JWT authentication and role-based access control separate student, organizer and admin journeys, while an interactive dashboard turns registration data into insight.',
+      features: [
+        'JWT-based authentication with a hardened, token-refresh flow',
+        'Role-based access control for students, organizers and admins',
+        'Event creation, registration and capacity management',
+        'Interactive analytics dashboard for registrations and attendance trends',
+        'PostgreSQL on Supabase — frontend on Vercel, API deployed on Render'
+      ],
+      stack: ['React.js', 'TypeScript', 'Node.js', 'Express.js', 'PostgreSQL', 'Supabase', 'JWT', 'Render', 'Vercel'],
+      role: 'Role — Solo developer: architecture, backend, frontend & deployment'
+    }
+  };
+
+  const modal = $('#modal');
+  function openModal(key) {
+    const p = PROJECTS[key];
+    if (!p) return;
+    $('#modalTitle').textContent = p.title;
+    $('#modalTag').textContent = p.tag;
+    $('#modalYear').textContent = p.year;
+    $('#modalIntro').textContent = p.intro;
+    $('#modalFeatures').innerHTML = p.features.map((f) =>
+      '<li class="flex gap-3 text-[15px] font-semibold text-ink/75 leading-relaxed"><span class="text-clay shrink-0 mt-0.5">✦</span><span>' + f + '</span></li>'
+    ).join('');
+    $('#modalStack').innerHTML = p.stack.map((s) =>
+      '<span class="pill">' + s + '</span>'
+    ).join('');
+    $('#modalRole').textContent = p.role;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => requestAnimationFrame(() => modal.classList.add('open')));
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 320);
+  }
+  $$('.case-btn').forEach((b) => b.addEventListener('click', () => openModal(b.dataset.project)));
+  $('.modal-backdrop').addEventListener('click', closeModal);
+  $('#modalClose').addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') { closeModal(); closeMenu(); }
+  });
+
+
+  /* ───────── copy email ───────── */
+  function copyText(txt) {
+    if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(txt);
+    const ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+    return Promise.resolve();
+  }
+  const copyBtn = $('#copyEmail');
+  copyBtn.addEventListener('click', () => {
+    copyText(EMAIL).then(() => {
+      toast('Email copied to clipboard');
+      copyBtn.classList.add('copied');
+      setTimeout(() => copyBtn.classList.remove('copied'), 2000);
+    });
+  });
+
+  /* ───────── contact form ───────── */
+  const form = $('#contactForm');
+  function setErr(input, msg) {
+    input.classList.add('input-err');
+    const p = input.parentElement.querySelector('.err');
+    p.textContent = msg;
+    p.classList.remove('hidden');
+    input.addEventListener('input', function clear() {
+      p.classList.add('hidden');
+      input.classList.remove('input-err');
+      input.removeEventListener('input', clear);
+    }, { once: true });
+  }
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = $('#f-name'), email = $('#f-email'), msg = $('#f-msg');
+    let ok = true;
+    if (name.value.trim().length < 2) { setErr(name, 'Please enter your name.'); ok = false; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { setErr(email, 'Please enter a valid email address.'); ok = false; }
+    if (msg.value.trim().length < 10) { setErr(msg, 'Tell me a little more — at least 10 characters.'); ok = false; }
+    if (!ok) { toast('Please fix the highlighted fields'); return; }
+    const btn = $('#sendBtn');
+    const original = btn.innerHTML;
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.innerHTML = original;
+      form.reset();
+      toast("Message sent — I'll get back to you soon!");
+    }, 1000);
+  });
+
+  /* ───────── hover slideshows ───────── */
+  $$('.hover-slideshow').forEach((container) => {
+    const images = Array.from(container.querySelectorAll('img'));
+    if (images.length <= 1) return;
+    let intervalId = null;
+    let currentIndex = 0;
+
+    container.addEventListener('mouseenter', () => {
+      intervalId = setInterval(() => {
+        images[currentIndex].style.opacity = '0';
+        currentIndex = (currentIndex + 1) % images.length;
+        images[currentIndex].style.opacity = '1';
+      }, 1500);
+    });
+
+    container.addEventListener('mouseleave', () => {
+      clearInterval(intervalId);
+      images.forEach((img, idx) => {
+        img.style.opacity = idx === 0 ? '1' : '0';
+      });
+      currentIndex = 0;
+    });
+  });
+
+  /* ───────── back to top ───────── */
+  $('#toTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+</script>
+</body>
+</html>
